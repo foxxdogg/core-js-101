@@ -81,8 +81,8 @@ function extractNameFromTemplate(value) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.slice(0, 1);
 }
 
 /**
@@ -96,8 +96,8 @@ function getFirstChar(/* value */) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -193,18 +193,29 @@ function extractEmails(str) {
  *            '┌────┐\n'+
  *  (6,4) =>  '│    │\n'+
  *            '│    │\n'+
- *            '└────┘\n'
+ *            '└ ──── ┘\n'
  *
- *  (2,2) =>  '┌┐\n'+
- *            '└┘\n'
+ *  (2,2) =>  '┌ ┐\n'+
+ *            '└ ┘\n'
  *
  *             '┌──────────┐\n'+
  *  (12,3) =>  '│          │\n'+
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const block1 = '┌';
+  const block2 = '─';
+  const block3 = '┐';
+  const block4 = '│';
+  const block5 = '└';
+  const block6 = '┘';
+  const block7 = ' ';
+  const top = `${block1}${block2.repeat(width - 2)}${block3}`;
+  const bottom = `${block5}${block2.repeat(width - 2)}${block6}`;
+  const middle = `${block4}${block7.repeat(width - 2)}${block4}\n`;
+  if (height === 2) return `${top}\n${bottom}\n`;
+  return `${top}\n${middle.repeat(height - 2)}${bottom}\n`;
 }
 
 
@@ -224,8 +235,18 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const ROT13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let ROT13String = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (alphabet.indexOf(str[i]) === -1) {
+      ROT13String += str[i];
+    } else {
+      ROT13String += ROT13[alphabet.indexOf(str[i])];
+    }
+  }
+  return ROT13String;
 }
 
 /**
@@ -279,8 +300,9 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardsArray = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return cardsArray.indexOf(value);
 }
 
 
