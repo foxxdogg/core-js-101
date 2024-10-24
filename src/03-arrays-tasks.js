@@ -298,8 +298,15 @@ function getMovingSum(arr) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  const newArray = [];
+  arr.map((el, i) => {
+    if (i % 2 !== 0) {
+      newArray.push(el);
+    }
+    return newArray;
+  });
+  return newArray;
 }
 
 
@@ -317,8 +324,25 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArr = [];
+  arr.map((el, i) => {
+    newArr.push(String(el).concat(',').repeat(i + 1).split('.'));
+    return newArr;
+  });
+  const newNewArr = newArr.join('').split(',');
+  newNewArr.length -= 1;
+  newNewArr.map((el, i) => {
+    if (el === 'null') {
+      newNewArr[i] = null;
+    } else if (typeof +el === 'number' && !Number.isNaN(+el)) {
+      newNewArr[i] = +el;
+    } else {
+      newNewArr[i] = el;
+    }
+    return newNewArr;
+  });
+  return newNewArr;
 }
 
 
